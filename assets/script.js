@@ -30,12 +30,13 @@ arrowRight.addEventListener("click", () => {
 })
 
 let index = 0
-
+bulletPoints()
 function bulletPoints (){
     for (let i= 0; i<slides.length; i++){
         let dots = document.querySelector(".dots")
         let dotDiv = document.createElement("div")
         dotDiv.classList.add("dot")
+		dotDiv.classList.add("dot-"+i)
         dots.appendChild(dotDiv)
         if (i === index){
             dotDiv.classList.add("dot_selected")
@@ -43,7 +44,14 @@ function bulletPoints (){
     }
 
 }
-
+function bulletPointsUpdate(){
+	//au clique sur la flèche je rentre dans cette fonction et je dois 
+	//sur quel je me trouve et sur quel dot je dois aller
+	let dotSelected = document.querySelector(".dot_selected")
+	dotSelected.classList.remove("dot_selected")
+	let dotNext = document.querySelector(".dot-"+index)
+	dotNext.classList.add("dot_selected")
+}
 function updateSlide() {
     let imageChange = document.querySelector(".banner-img") 
     imageChange.setAttribute("src", `./assets/images/slideshow/${slides[index].image}`) 
@@ -51,7 +59,7 @@ function updateSlide() {
     let tagLineElement = document.querySelector("#banner p") 
     tagLineElement.innerHTML = slides[index].tagLine 
 
-    bulletPoints() 
+    bulletPointsUpdate() 
 }
 
 function arrowChange(direction) {
@@ -63,4 +71,4 @@ function arrowChange(direction) {
     updateSlide() 
 }
 
-updateSlide() 
+
